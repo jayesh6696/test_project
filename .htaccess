@@ -1,0 +1,19 @@
+## No indexing
+Options -Indexes
+
+## Rewrite and make link look like dir
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php/$0 [PT,L]
+</IfModule>
+
+## Forward 404 to index.php
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 /index.php
+</IfModule>
+    
+## Remove server info
+ServerSignature Off
+Header unset Server
